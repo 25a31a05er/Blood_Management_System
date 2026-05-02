@@ -1,0 +1,148 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Structure to hold donor information
+struct Donor {
+    int id;
+    string name;
+    int age;
+    string bloodGroup;
+    string contact;
+};
+
+// Class to manage the blood bank operations
+class BloodBank {
+private:
+    vector<Donor> donors;
+    int nextId = 1;
+
+public:
+    // Function to add a new donor to the system
+    void addDonor() {
+        Donor newDonor;
+        newDonor.id = nextId++;
+
+        cout << "\n--- Add New Donor ---" << endl;
+        cout << "Enter Donor Name: ";
+        cin.ignore(); // Clear the input buffer
+        getline(cin, newDonor.name);
+
+        cout << "Enter Donor Age: ";
+        cin >> newDonor.age;
+
+        // Basic age validation
+        if (newDonor.age < 18 || newDonor.age > 65) {
+            cout << "Error: Donor must be between 18 and 65 years old to donate blood." << endl;
+            return;
+        }
+
+        cout << "Enter Blood Group (e.g., A+, O-, B+): ";
+        cin >> newDonor.bloodGroup;
+
+        cout << "Enter Contact Number: ";
+        cin >> newDonor.contact;
+
+        donors.push_back(newDonor);
+        cout << "Donor successfully added! Donor ID is: " << newDonor.id << endl;
+    }
+
+    // Function to display all registered donors
+    void viewAllDonors() {
+        if (donors.empty()) {
+            cout << "\nNo donors found in the system." << endl;
+            return;
+        }
+
+        cout << "\n--- List of All Registered Donors ---" << endl;
+        for (const auto& donor : donors) {
+            displayDonor(donor);
+        }
+    }
+
+    // Function to search for donors based on their blood group
+    void searchByBloodGroup() {
+        if (donors.empty()) {
+            cout << "\nNo donors found in the system." << endl;
+            return;
+        }
+
+        string bg;
+        cout << "\nEnter Blood Group to search for: ";
+        cin >> bg;
+
+        bool found = false;
+        cout << "\n--- Search Results for Blood Group " << bg << " ---" << endl;
+
+        for (const auto& donor : donors) {
+            // Simple string comparison (case-sensitive in this basic version)
+            if (donor.bloodGroup == bg) {
+                displayDonor(donor);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            cout << "No donors found with blood group " << bg << "." << endl;
+        }
+    }
+
+private:
+    // Helper function to print individual donor details
+    void displayDonor(const Donor& donor) const {
+        cout << "ID: " << donor.id 
+             << " | Name: " << donor.name 
+             << " | Age: " << donor.age 
+             << " | Blood Group: " << donor.bloodGroup 
+             << " | Contact: " << donor.contact << endl;
+    }
+};
+
+// Main function to run the menu-driven program
+int main() {
+    BloodBank bank;
+    int choice;
+
+    cout << "Welcome to the Blood Donation System" << endl;
+
+    do {
+        cout << "\n===================================" << endl;
+        cout << "       BLOOD DONATION MENU         " << endl;
+        cout << "===================================" << endl;
+        cout << "1. Add New Donor" << endl;
+        cout << "2. View All Donors" << endl;
+        cout << "3. Search Donors by Blood Group" << endl;
+        cout << "4. Exit Application" << endl;
+        cout << "===================================" << endl;
+        cout << "Enter your choice (1-4): ";
+
+        // Handle invalid input types (like entering a letter)
+        if (!(cin >> choice)) {
+            cout << "Invalid input. Please enter a number." << endl;
+            cin.clear(); // clear error flags
+            cin.ignore(10000, '\n'); // discard faulty input
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                bank.addDonor();
+                break;
+            case 2:
+                bank.viewAllDonors();
+                break;
+            case 3:
+                bank.searchByBloodGroup();
+                break;
+            case 4:
+                cout << "\nExiting the Blood Donation System. Thank you for using it!" << endl;
+                break;
+            default:
+                cout << "\nInvalid choice. Please select a valid option between 1 and 4." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
