@@ -1,0 +1,26 @@
+ Methodology
+
+1. *Data Structure Used:*
+
+   * A vector is used to store donor records dynamically.
+   * Each donor is represented using a struct.
+
+2. *Program Flow:*
+
+   * The program starts with a menu-driven interface.
+   * Users select options to perform operations.
+   * Based on input, corresponding functions are executed.
+
+3. *Input Handling:*
+
+   * Uses cin and getline() for user input
+   * Includes validation for invalid entries
+
+4. *Processing:*
+
+   * Donor details are stored in a list
+   * Search is performed using linear traversal
+
+5. *Output:*
+
+   * Displays formatted donor details on the console
