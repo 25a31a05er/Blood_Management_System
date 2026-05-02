@@ -1,0 +1,22 @@
+Modules
+
+### 1. Donor Management Module
+
+* Adds new donor details
+* Validates donor age (18–65 years)
+* Stores donor information in memory
+
+### 2. View Donors Module
+
+* Displays all registered donors
+* Shows details like ID, name, age, blood group, and contact
+
+### 3. Search Module
+
+* Searches donors based on blood group
+* Displays matching donor records
+
+### 4. User Interface Module
+
+* Menu-driven interface
+* Handles user input and navigation
